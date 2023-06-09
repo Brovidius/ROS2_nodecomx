@@ -8,15 +8,6 @@ from datetime import datetime
 # This module contains our modem information which is used among all local nodes.
 from nodecomx.modem_info import *
 
-
-# int JANUS_RX_PORT = 9955;
-# int JANUS_TX_PORT = 9955;
-# string IP = "192.168.0.189";
-# float STREAMFS = 250000.0;
-
-# Define the function signature
-#     Evo_janusXsdm::connection modem(IP, JANUSPATH, SDMPATH, JANUS_RX_PORT, JANUS_TX_PORT, STREAMFS); //Constructing a connection object;
-
 class  ReceiverNode(Node):
 
     def __init__(self):
@@ -30,7 +21,7 @@ class  ReceiverNode(Node):
         
         # For UnetStack reception. See official documentation for correct settings.
         self.phy << RxJanusFrameNtf(appData = 7, classUserID = 16)
-        self.phy[3].frameLength = 40
+        self.phy[3].frameLength = 32
 
         # Clearing the buffer
         self.phy.ClearReq
@@ -49,7 +40,7 @@ class  ReceiverNode(Node):
         self.timer = self.create_timer(1, self.publish_callback)
 
         # ROS 2 publisher
-        self.publisher_ = self.create_publisher(String, f'topic_reception{modem_name}', 1)
+        self.publisher_ = self.create_publisher(String, f'/topic_reception{modem_name}', 1)
         # Call the function
 
         self.mindummevariabel = 1
