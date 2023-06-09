@@ -24,8 +24,8 @@ class ProcessingNode(Node):
         self.msg = String()
 
         # ROS 2 publisher and subscriber       
-        self.publisher_ = self.create_publisher(String, f'topic_transmission{modem_name}', 1)
-        self.subscription = self.create_subscription(String, f'topic_reception{modem_name}', self.number_callback, 1)
+        self.publisher_ = self.create_publisher(String, f'/topic_transmission{modem_name}', 1)
+        self.subscription = self.create_subscription(String, f'/topic_reception{modem_name}', self.number_callback, 1)
         self.subscription # To ignore unimportant errors. Recommended by ROS 2 documentation.
 
         # Creating an instance of the NRC algorithm
